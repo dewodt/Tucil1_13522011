@@ -60,7 +60,7 @@ func saveToFile(solution solve.SolutionData, deltaTime time.Duration, inputData 
 
 	// Write to file
 	// Reward
-	file.WriteString(fmt.Sprintf("Reward: %d\n", solution.Reward))
+	file.WriteString(fmt.Sprintf("Optimal Reward: %d\n", solution.Reward))
 	// Path
 	pathCode := getPathCode(solution.Path, inputData)
 	file.WriteString(fmt.Sprintf("Path: %s\n", pathCode))
@@ -78,11 +78,11 @@ func PrintResult(solution solve.SolutionData, deltaTime time.Duration, inputData
 	fmt.Println("===================================================================================")
 	if solution.Reward == 0 {
 		// Reward
-		fmt.Println("Reward: 0")
+		fmt.Println("Optimal Reward: 0")
 		fmt.Println("No solution found")
 	} else {
 		// Reward
-		fmt.Println("Reward:", solution.Reward)
+		fmt.Println("Optimal Reward:", solution.Reward)
 		// Path
 		pathCode := getPathCode(solution.Path, inputData)
 		fmt.Printf("Path: %s\n", pathCode)

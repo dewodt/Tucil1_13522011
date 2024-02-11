@@ -1,0 +1,12 @@
+Optimal Reward: 50
+Path: 7A BD 7A BD 1C BD 55
+Coordinate:
+1 1
+1 4
+3 4
+3 5
+6 5
+6 3
+1 3
+
+Time: 60 ms

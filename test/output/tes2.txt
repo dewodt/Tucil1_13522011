@@ -1,0 +1,12 @@
+Optimal Reward: 82
+Path: IJ EF CD IJ CD CD CD
+Coordinate:
+1 1
+1 4
+5 4
+5 3
+6 3
+6 1
+2 1
+
+Time: 139 ms

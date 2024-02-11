@@ -1,0 +1,15 @@
+Optimal Reward: 144
+Path: EF EF EF IJ GH AB EF KL CD CD
+Coordinate:
+2 1
+2 2
+4 2
+4 4
+1 4
+1 7
+7 7
+7 4
+8 4
+8 6
+
+Time: 126446 ms

@@ -5,6 +5,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
+	"slices"
 	"strings"
 )
 
@@ -28,6 +30,16 @@ type InputData struct {
 	BufferSize int
 	Matrix     Matrix
 	Sequences  ArraySequence
+}
+
+func isTokenValid(token string) bool {
+	// Token terdiri dari dua karakter alfa numerik
+	if len(token) != 2 {
+		return false
+	}
+
+	// Check if token is alphanumeric
+	return regexp.MustCompile(`^[a-zA-Z0-9]*$`).MatchString(token)
 }
 
 func printInputData(inputData InputData) {
@@ -168,28 +180,72 @@ func getFromKeyboard(inputData *InputData) {
 	fmt.Println("Masukkan jumlah token unik:")
 	var tokenUnikCount int
 	fmt.Scan(&tokenUnikCount)
+	// Validasi jumlah token unik > 0
+	for tokenUnikCount <= 0 {
+		fmt.Println("Jumlah token unik harus lebih dari 0, silakan masukkan jumlah token unik yang valid:")
+		fmt.Scan(&tokenUnikCount)
+	}
 
 	fmt.Println("Masukkan token unik:")
 	tokenArray := make([]string, tokenUnikCount)
 	for i := 0; i < tokenUnikCount; i++ {
-		fmt.Scan(&tokenArray[i])
+		var newToken string
+		fmt.Scan(&newToken)
+		// Validasi token
+		isTokenExist := slices.Contains(tokenArray, newToken)
+		for !isTokenValid(newToken) || isTokenExist {
+			if !isTokenValid(newToken) {
+				fmt.Println("Token harus memiliki panjang 2 dan berupa karakter alfanumerik, silakan masukkan token yang valid:")
+			} else {
+				fmt.Println("Token sudah Anda masukkan, silakan masukkan token yang belum ada:")
+			}
+			fmt.Scan(&newToken)
+			isTokenExist = slices.Contains(tokenArray, newToken)
+		}
+		// Add token to array
+		tokenArray[i] = newToken
 	}
 
 	fmt.Println("Masukkan buffer size:")
 	fmt.Scan(&inputData.BufferSize)
+	// Validasi buffer size > 0
+	for inputData.BufferSize <= 0 {
+		fmt.Println("Buffer size harus lebih dari 0, silakan masukkan buffer size yang valid:")
+		fmt.Scan(&inputData.BufferSize)
+	}
 
 	fmt.Println("Masukkan matriks width:")
 	fmt.Scan(&inputData.Matrix.Width)
+	// Validasi matriks width > 0
+	for inputData.Matrix.Width <= 0 {
+		fmt.Println("Matriks width harus lebih dari 0, silakan masukkan matriks width yang valid:")
+		fmt.Scan(&inputData.Matrix.Width)
+	}
 
 	fmt.Println("Masukkan matriks height:")
 	fmt.Scan(&inputData.Matrix.Height)
+	// Validasi matriks height > 0
+	for inputData.Matrix.Height <= 0 {
+		fmt.Println("Matriks height harus lebih dari 0, silakan masukkan matriks height yang valid:")
+		fmt.Scan(&inputData.Matrix.Height)
+	}
 
 	fmt.Println("Masukkan jumlah sequence:")
 	fmt.Scan(&inputData.Sequences.Size)
+	// Validasi jumlah sequence > 0
+	for inputData.Sequences.Size <= 0 {
+		fmt.Println("Jumlah sequence harus lebih dari 0, silakan masukkan jumlah sequence yang valid:")
+		fmt.Scan(&inputData.Sequences.Size)
+	}
 
 	var ukuranMaxSequence int
 	fmt.Println("Masukkan ukuran max sequence:")
 	fmt.Scan(&ukuranMaxSequence)
+	// Validasi ukuran max sequence >= 2 (peraturan nomor 6 sekuens minimal berupa 2 token)
+	for ukuranMaxSequence < 2 {
+		fmt.Println("Ukuran sequence minimal 2, silakan masukkan ukuran max sequence yang valid:")
+		fmt.Scan(&ukuranMaxSequence)
+	}
 
 	// Generate random matrix
 	for i := 0; i < inputData.Matrix.Height; i++ {

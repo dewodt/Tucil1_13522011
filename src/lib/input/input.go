@@ -39,12 +39,26 @@ func printInputData(inputData InputData) {
 	fmt.Println("Matrix height:", inputData.Matrix.Height)
 	fmt.Println("Matrix data:")
 	for i := 0; i < inputData.Matrix.Height; i++ {
-		fmt.Println(inputData.Matrix.Buffer[i])
+		for j := 0; j < inputData.Matrix.Width; j++ {
+			fmt.Print(inputData.Matrix.Buffer[i][j])
+			if j != inputData.Matrix.Width-1 {
+				fmt.Print(" ")
+			} else {
+				fmt.Println()
+			}
+		}
 	}
 	fmt.Println("Sequence size:", inputData.Sequences.Size)
 	fmt.Println("Sequence data:")
 	for i := 0; i < inputData.Sequences.Size; i++ {
-		fmt.Println(inputData.Sequences.Buffer[i].Sequence)
+		for j := 0; j < len(inputData.Sequences.Buffer[i].Sequence); j++ {
+			fmt.Print(inputData.Sequences.Buffer[i].Sequence[j])
+			if j != len(inputData.Sequences.Buffer[i].Sequence)-1 {
+				fmt.Print(" ")
+			} else {
+				fmt.Println()
+			}
+		}
 		fmt.Println(inputData.Sequences.Buffer[i].Reward)
 	}
 	fmt.Println("===================================================================================")
